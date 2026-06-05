@@ -1,5 +1,10 @@
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_openai import ChatOpenAI
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
 
 # Act as a critique for twitter post
 reflection_prompt = ChatPromptTemplate.from_messages(
@@ -27,6 +32,6 @@ generation_prompt = ChatPromptTemplate.from_messages(
     ]
 )
 
-llm = ChatOpenAI(model="gpt-4o-mini")
+llm = ChatOpenAI(model="gpt-4o-mini", api_key=os.environ.get("OPENAI_API_KEY"))
 generate_chain= generation_prompt | llm
 reflection_chain= reflection_prompt | llm
